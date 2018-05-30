@@ -1,4 +1,4 @@
-MS1M/VGG2 mxrecord cane be downloaded from here: https://github.com/deepinsight/insightface
+MS1M/VGG2 mxrecord can be downloaded from here: https://github.com/deepinsight/insightface
 
 Use the code mxrec2tfrec to trasfer the mxrecord to tfrecord.
 
