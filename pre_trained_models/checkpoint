@@ -1,0 +1,3 @@
+model_checkpoint_path: "agedb_mobileDM_acc_0.9306666666666665.ckpt"
+all_model_checkpoint_paths: "agedb_mobileDM_acc_0.9306666666666665.ckpt"
+all_model_checkpoint_paths: "lfw_mobileDM_acc_0.9941666666666666.ckpt"
