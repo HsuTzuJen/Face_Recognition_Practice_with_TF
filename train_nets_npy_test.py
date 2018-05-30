@@ -78,9 +78,8 @@ if __name__ == '__main__':
     config.gpu_options.allow_growth = True
     sess = tf.Session(config=config)
     
-    # 3.2 get arcface loss
+    # 3.2 get loss
     margin = tf.placeholder(tf.float32, name='margin')
-    
     now_m ,logit = LMCL(embedding=net.outputs, labels=labels, w_init=w_init_method, out_num=args.num_output, m = margin, s=64.)#, reuse=False)
     # test net  because of batch normal layer
     #tl.layers.set_name_reuse(True)
