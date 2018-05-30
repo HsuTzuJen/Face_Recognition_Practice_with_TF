@@ -28,8 +28,8 @@ def get_parser():
     parser.add_argument('--momentum', default=0.9, help='learning alg momentum')
     parser.add_argument('--weight_deacy', default=5e-4, help='learning alg momentum')
     # parser.add_argument('--eval_datasets', default=['lfw', 'cfp_ff', 'cfp_fp', 'agedb_30'], help='evluation datasets')
-    parser.add_argument('--eval_datasets', default=['agedb_30'], help='evluation datasets')
-    parser.add_argument('--eval_db_path', default='./datasets/faces_vgg_112x112', help='evluate datasets base path')
+    parser.add_argument('--eval_datasets', default=['lfw'], help='evluation datasets')
+    parser.add_argument('--eval_db_path', default='./datasets/faces_ms1m_112x112', help='evluate datasets base path')
     parser.add_argument('--image_size', default=[112, 112], help='the image size')
     parser.add_argument('--num_output', default=85164, help='the image size')
     parser.add_argument('--tfrecords_file_path', default='./datasets/faces_ms1m_112x112', type=str,
@@ -60,7 +60,7 @@ if __name__ == '__main__':
     
     trainable = tf.placeholder(name='trainable_bn', dtype=tf.bool)
     # 2 prepare train datasets and test datasets by using tensorflow dataset api
-    get_batch = batch_creator(tfrecord_path = 'C:/MS1Mtrain.tfrecords', shuffle_size = 19200, number_process = 1, cutout_size = args.cutout_length, batch_size=args.batch_size)
+    get_batch = batch_creator(tfrecord_path = './datasets/faces_ms1m_112x112/train.tfrecords', shuffle_size = 19200, number_process = 1, cutout_size = args.cutout_length, batch_size=args.batch_size)
     # 2.2 prepare validate datasets
     ver_list = []
     ver_name_list = []
@@ -79,15 +79,10 @@ if __name__ == '__main__':
     config.gpu_options.allow_growth = True
     sess = tf.Session(config=config)
     
-    '''
-    sess.run(tf.global_variables_initializer())
-    restore_saver = tf.train.Saver()
-    restore_saver.restore(sess, './output/ckpt/LIR101+cutout_iter_244000_acc_0.9921666666666666.ckpt')    
-    '''
     # 3.2 get arcface loss
     margin = tf.placeholder(tf.float32, name='margin')
     
-    now_m ,logit = LMCL(embedding=net.outputs, labels=labels, w_init=w_init_method, out_num=args.num_output, m = margin, s=128.)#, reuse=False)
+    now_m ,logit = LMCL(embedding=net.outputs, labels=labels, w_init=w_init_method, out_num=args.num_output, m = margin, s=64.)#, reuse=False)
     # test net  because of batch normal layer
     #tl.layers.set_name_reuse(True)
     #test_net = get_resnet(images, args.net_depth, type='ir', w_init=w_init_method, trainable=False, reuse=True)
@@ -110,20 +105,20 @@ if __name__ == '__main__':
     # 3.5 total losses
     total_loss = inference_loss + wd_loss
     
-    model_name = 'agedbmobileDM(s=128from1080K)b{}.log'.format(args.batch_size)
+    model_name = 'mobilefacenet'
     if not os.path.exists(args.log_file_path):
         os.makedirs(args.log_file_path)
-    log_file_path = args.log_file_path + '/'+ model_name
-    log_file = open(log_file_path, 'a')
+    log_file_path = args.log_file_path + '/'+ model_name + '.log'
+    log_file = open(log_file_path, 'w')
     # 4 begin iteration
-    count = 1364000
+    count = 0
     count_add = int(args.batch_size/64)
     total_accuracy = {}
-    acc_save = 0.9306666666666665
+    acc_save = 0.992
     max_acc_iter = count
     lowest_inference_loss_val = 2.5
     lowest_acc_val = 0.7
-    now_acc = 0.9306666666666665
+    now_acc = 0.5
     use_m = 0.5
     fix_m = True    
     
@@ -166,7 +161,7 @@ if __name__ == '__main__':
     sess.run(tf.global_variables_initializer())
     #saver.save(sess,'./output/ckpt/test.ckpt')
     restore_saver = tf.train.Saver()
-    restore_saver.restore(sess, './output/ckpt/agedbmobileDM(s=128from1080K)b64.log_iter_1364000_acc_0.9306666666666665.ckpt')
+    #restore_saver.restore(sess, './output/ckpt/agedbmobileDM(s=128from1080K)b64.log_iter_1364000_acc_0.9306666666666665.ckpt')
     
     #initailzie uninitialized weights
     '''
