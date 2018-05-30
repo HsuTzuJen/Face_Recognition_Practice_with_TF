@@ -63,8 +63,10 @@ class batch_creator:
         self.cutout_size = cutout_size
         self.number_process = number_process
         
+        self.proc = []
         for i in range(self.number_process):
             p = mp.Process(target = batch_creator.create_batch, args = (self,))
+            self.proc += [p,]
             p.start()
 
     def create_batch(self):
