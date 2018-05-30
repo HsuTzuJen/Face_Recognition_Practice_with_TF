@@ -9,7 +9,6 @@ import tensorflow as tf
 import tensorlayer as tl
 import argparse
 import os
-from losses.face_losses import arcface_loss
 from losses.face_losses import LMCL
 from tensorflow.core.protobuf import config_pb2
 import time
