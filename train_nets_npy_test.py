@@ -8,21 +8,16 @@ import numpy as np
 import tensorflow as tf
 import tensorlayer as tl
 import argparse
-#from data.mx2tfrecords import parse_function
-#from data.mx2tfrecords import cutout
 import os
-#from nets.L_Resnet_E_IR import get_resnet
-#from nets.L_Resnet_E_IR_GBN import get_resnet
 from losses.face_losses import arcface_loss
 from losses.face_losses import LMCL
 from tensorflow.core.protobuf import config_pb2
 import time
 from data.eval_data_reader import load_bin
 from verification import ver_test
-#from nets.resnet_v2test import resnet_v2_50
-from nets.mobilefacenet_test import get_symbol
+from Nets.mobilefacenet_test import get_symbol
 from data.batch_generator import batch_creator
-#from nets.L_Resnet_E_IR_fixed import get_resnet
+
 
 def get_parser():
     parser = argparse.ArgumentParser(description='parameters to train net')
