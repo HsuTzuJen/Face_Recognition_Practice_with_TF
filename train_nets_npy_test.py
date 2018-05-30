@@ -161,17 +161,6 @@ if __name__ == '__main__':
     restore_saver = tf.train.Saver()
     #restore_saver.restore(sess, './output/ckpt/agedbmobileDM(s=128from1080K)b64.log_iter_1364000_acc_0.9306666666666665.ckpt')
     
-    #initailzie uninitialized weights
-    '''
-    uninitialized_vars = []
-    for var in tf.global_variables():
-        try:
-            sess.run(var)
-        except tf.errors.FailedPreconditionError:
-            uninitialized_vars.append(var)
-
-    sess.run(tf.variables_initializer(uninitialized_vars))
-    '''   
     # 4 begin iteration
     for i in range(args.epoch):
         #break
