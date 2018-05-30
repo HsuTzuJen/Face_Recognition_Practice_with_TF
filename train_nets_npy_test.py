@@ -159,7 +159,7 @@ if __name__ == '__main__':
     sess.run(tf.global_variables_initializer())
     #saver.save(sess,'./output/ckpt/test.ckpt')
     restore_saver = tf.train.Saver()
-    #restore_saver.restore(sess, './output/ckpt/agedbmobileDM(s=128from1080K)b64.log_iter_1364000_acc_0.9306666666666665.ckpt')
+    #restore_saver.restore(sess, './output/ckpt/')
     
     # 4 begin iteration
     for i in range(args.epoch):
