@@ -1,12 +1,12 @@
 # Face_Recognition_Practice_with_TF
 Face_Recognition_Practice_with_TF
+I put my master degree things here.
 
-references:
+some references:
 
 https://github.com/auroua/InsightFace_TF
 
 https://github.com/deepinsight/insightface
-
 
 mobilefacenet acc. test on agedb_30 : 0.9306666666666665
 
