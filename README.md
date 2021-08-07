@@ -2,6 +2,7 @@
 Face_Recognition_Practice_with_TF
 
 I put my master degree things here.
+If you are looking for a parallel process that pregenerates training data, please check data/batch_generator.py.
 
 some references:
 
